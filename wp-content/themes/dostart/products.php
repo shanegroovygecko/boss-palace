@@ -68,8 +68,8 @@ get_header(); ?>
                                 </div>
                                 <center>
                                     <h5><?php the_title(); ?></h5>
-                                    <p style="color:red">$<?php echo esc_html(get_post_meta(get_the_ID(), 'price', true)); ?></p>
-                                    <button class="btn btn-warning btn-sm">Add to cart</button>
+                                    <p style="color:maroon">$<?php echo esc_html(get_post_meta(get_the_ID(), 'price', true)); ?></p>
+                                    <a href="<?php the_permalink(); ?>"><button class="btn btn-warning btn-sm">Add to cart</button></a>
                                 </center>
                             </div>
                         <?php endwhile; ?>
