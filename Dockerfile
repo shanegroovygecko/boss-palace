@@ -11,6 +11,3 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
     && docker-php-ext-install exif
-
-
-ENTRYPOINT ["./docker/provision-app-start.sh"]
