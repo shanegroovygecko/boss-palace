@@ -1,19 +1,14 @@
 FROM php:7.4-apache
 
-RUN mkdir -p /var/www/installables
-COPY docker-files/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY docker-files/rewrite.load /etc/apache2/mods-enabled/rewrite.load
-COPY docker-files/installables.sh /var/www/installables/installables.sh
-COPY docker-files/provision-app-start.sh /var/www/installables/provision-app-start.sh
-RUN chmod +x /var/www/installables/installables.sh
-RUN sh /var/www/installables/installables.sh
-RUN chmod +x /var/www/installables/provision-app-start.sh
+RUN docker-php-ext-install mysqli pdo_mysql
+RUN apt-get update \
+    && apt-get install -y sudo \
+    && apt-get install -y curl \
+    && apt-get install -y libzip-dev \
+    && apt-get install -y zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install exif
 
 
-#ENTRYPOINT ["/var/www/installables/provision-app-start.sh"]
 ENTRYPOINT ["./docker/provision-app-start.sh"]
-
-
-#&& -c 'curl -sL https://deb.nodesource.com/setup_15.x | bash -' \
-#    && apt-get update \
-#    && su -c 'apt install -y nodejs' \
