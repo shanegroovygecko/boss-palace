@@ -40,7 +40,8 @@ get_header(); ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Hello there</h1>
+                    <?php echo do_shortcode('[st48pay_print_paypal_buttons]'); ?>
+                    <?php echo do_shortcode('[st48pay_print_mpesa_buttons]'); ?>
                 </div>
             </div>
         </div>
