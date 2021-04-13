@@ -39,11 +39,5 @@ services:
             MYSQL_USER: user
             MYSQL_PASSWORD: test
             MYSQL_ROOT_PASSWORD: test
-    #swicko-composer:
-    #    image: composer:1.9
-    #    container_name: 'swicko-composer'
-    #    command: [ "composer", "install" ]
-    #    volumes:
-    #        - ./www:/app
 volumes:
     persistent:
