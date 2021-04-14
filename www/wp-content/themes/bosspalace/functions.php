@@ -5,7 +5,7 @@ $assetVersion = '1.0.0';
 if (!function_exists('dump')) {
     function dump($object = "", $echo = true)
     {
-        $output = "<pre style='background-color: #0c0c0c; color: darkgreen; padding:20px 0;'>" . print_r($object, true) . "</pre>";
+        $output = "<pre style='background-color: #0c0c0c; color: #0bbd0b; padding:20px 0;'>" . print_r($object, true) . "</pre>";
         if ($echo) {
             echo $output;
             return;
@@ -23,6 +23,16 @@ if (!function_exists('dd')) {
 }
 
 define('BL_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
+define('BL_THEME_DIR', trailingslashit(get_stylesheet_directory()));
+
+
+require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
+
+use App\Site\Main;
+
+$mainFunctions = new Main();
+$mainFunctions->init();
+
 
 add_action('wp_enqueue_scripts', 'enqueue_scripts');
 
