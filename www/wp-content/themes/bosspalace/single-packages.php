@@ -1,3 +1,4 @@
+
 <?php
 /**
  * The main template file
@@ -19,12 +20,12 @@ get_header(); ?>
 
 <?php
 if ( have_posts() ) :
+
     /* Start the Loop */
     while ( have_posts() ) :
         the_post();
         ?>
-        <?php get_template_part( 'template-parts/sections/categories', 'group' );  ?>
-        <?php //the_content(); ?>
+        <?php get_template_part( 'template-parts/sections/packages', 'group' );  ?>
     <?php
 
         /*
@@ -36,7 +37,7 @@ if ( have_posts() ) :
     endwhile;
 else :
     ?>
-    <h1>THe else index</h1>
+    <h1>THe else ss</h1>
 <?php
 endif; ?>
 

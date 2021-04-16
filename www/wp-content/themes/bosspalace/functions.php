@@ -1,6 +1,18 @@
 <?php
+define('BL_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
+define('BL_THEME_DIR', trailingslashit(get_stylesheet_directory()));
+
+
+require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
+require_once BL_THEME_DIR. 'assets/php/Front/FrontHelper.php';
+
+use App\Site\Main;
+use App\Front\FrontHelper;
 
 $assetVersion = '1.0.0';
+$frontHelper = new FrontHelper();
+$mainFunctions = new Main();
+$mainFunctions->init();
 
 if (!function_exists('dump')) {
     function dump($object = "", $echo = true)
@@ -21,17 +33,6 @@ if (!function_exists('dd')) {
         die;
     }
 }
-
-define('BL_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
-define('BL_THEME_DIR', trailingslashit(get_stylesheet_directory()));
-
-
-require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
-
-use App\Site\Main;
-
-$mainFunctions = new Main();
-$mainFunctions->init();
 
 
 add_action('wp_enqueue_scripts', 'enqueue_scripts');

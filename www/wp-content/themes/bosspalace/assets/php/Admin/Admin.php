@@ -2,23 +2,17 @@
 
 namespace App\Admin;
 
-require_once BL_THEME_DIR . 'assets/php/Admin/PostTypes/Init.php';
+require_once BL_THEME_DIR . 'assets/php/GlobalFunctions.php';
 require_once BL_THEME_DIR . 'assets/php/Admin/SavePosts/InitSavePost.php';
 
-use App\Admin\PostTypes\Init;
+use App\GlobalFunctions;
 
 /**
  * Class Main
  * @package App\Site
  */
-class Admin
+class Admin extends GlobalFunctions
 {
-    private Init $init;
-
-    public function __construct()
-    {
-        $this->init = new Init();
-    }
 
     public function init()
     {
@@ -28,11 +22,5 @@ class Admin
     private function addPostTypes()
     {
         add_action('init', array($this, 'setPostTypes'));
-    }
-
-
-    public function setPostTypes()
-    {
-        $this->init->init();
     }
 }

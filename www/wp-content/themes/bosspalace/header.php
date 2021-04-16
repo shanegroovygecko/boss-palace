@@ -8,7 +8,8 @@
     <?php wp_head(); ?>
 </head>
 
-<body>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <div class="tm-page-wrap mx-auto">
     <?php if ( is_front_page() ) : ?>
         <?php get_template_part( 'template-parts/sections/headers/headers', 'front' );  ?>
