@@ -1,4 +1,4 @@
-<div id="paypal-button" style="width: 50%"></div>
+<div id="paypal-button"></div>
 
 <script>
     paypal.Button.render({
@@ -14,7 +14,7 @@
             size: 'responsive',
             // size: 'small',
             color: 'gold',
-            shape: 'pill',
+            //shape: 'pill',
         },
 
         // Enable Pay Now checkout flow (optional)

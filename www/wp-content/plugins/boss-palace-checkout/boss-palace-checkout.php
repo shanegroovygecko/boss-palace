@@ -11,8 +11,8 @@
  * Domain Path:       /languages
  */
 
-add_action('init', 'boss_palace_init');
-add_action('wp_enqueue_scripts', 'boss_palace_scripts');
+add_action('init', 'st48pay_init');
+add_action('wp_enqueue_scripts', 'st48pay_scripts');
 
 include_once(plugin_dir_path(__FILE__) . 'inc/Php/Paypal/Paypal.php');
 include_once(plugin_dir_path(__FILE__) . 'inc/Php/Mpesa/Mpesa.php');
@@ -23,8 +23,8 @@ use App\Mpesa\Mpesa;
 $payPal = new Paypal();
 $mpesa = new Mpesa();
 
-if (!function_exists('boss_palace_init')) {
-    function boss_palace_init()
+if (!function_exists('st48pay_init')) {
+    function st48pay_init()
     {
         global $payPal, $mpesa;
         $payPal->init();
@@ -32,18 +32,18 @@ if (!function_exists('boss_palace_init')) {
     }
 }
 
-if (!function_exists('boss_palace_scripts')) {
-    function boss_palace_scripts()
+if (!function_exists('st48pay_scripts')) {
+    function st48pay_scripts()
     {
-        wp_enqueue_script('plugin_paypal_checkout_js', 'https://www.paypalobjects.com/api/checkout.js');
-        wp_enqueue_script('plugin_front-js', plugins_url('/inc/assets/js/front/main.js', __FILE__),
+        wp_enqueue_script('st48pay_paypal_checkout_js', 'https://www.paypalobjects.com/api/checkout.js');
+        wp_enqueue_script('st48pay_plugin_front-js', plugins_url('/inc/assets/js/front/main.js', __FILE__),
             array('wp-util', 'jquery'), false, true);
-        boss_palace_styles();
+        st48pay_styles();
     }
 }
 
-if (!function_exists('boss_palace_styles')) {
-    function boss_palace_styles()
+if (!function_exists('st48pay_styles')) {
+    function st48pay_styles()
     {
         wp_enqueue_style('template_style', plugins_url('/inc/assets/css/front/main.css', __FILE__) );
     }

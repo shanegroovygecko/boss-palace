@@ -51,7 +51,7 @@
 
 </div> <!-- .tm-page-wrap -->
 
-
+<?php wp_footer(); ?>
 <script src="<?php echo esc_url(BL_THEME_URI . 'templatemo_552_video_catalog/js/jquery-3.4.1.min.js'); ?>"></script>
 <script src="<?php echo esc_url(BL_THEME_URI . 'templatemo_552_video_catalog/js/bootstrap.min.js'); ?>"></script>
 <script>

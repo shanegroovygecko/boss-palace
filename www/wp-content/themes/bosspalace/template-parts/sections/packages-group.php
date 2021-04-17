@@ -4,7 +4,7 @@
     <?php $fields = get_fields(get_the_ID()); ?>
     <div class="row mb-5 pb-4">
         <div class="col-12">
-            <?php if (!empty($fields['youtube_video_id'])): ?>
+            <?php /* if (!empty($fields['youtube_video_id'])): ?>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/<?php echo $fields['youtube_video_id']; ?>"
                             frameborder="0"
@@ -37,7 +37,7 @@
             <?php elseif (!empty($fields['youtube_video_id'])): ?>
                 <img src="<?php echo esc_url(BL_THEME_URI . 'templatemo_552_video_catalog/img/tn-01.jpg'); ?>"
                      alt="Image" class="img-fluid tm-catalog-item-img">
-            <?php endif; ?>
+            <?php endif; */ ?>
         </div>
     </div>
     <div class="row mb-5 pb-5">
@@ -58,15 +58,18 @@
                     <a href="" class="tm-bg-white tm-share-button"><i class="fab fa-pinterest"></i></a>
                     <a href="" class="tm-bg-white tm-share-button"><i class="far fa-envelope"></i></a>
                 </div>
-                <p class="mb-4">Author: <a href="https://templatemo.com" class="tm-text-link">TemplateMo</a></p>
-                <a href="#" class="tm-bg-white px-5 mb-4 d-inline-block tm-text-primary tm-likes-box tm-liked">
-                    <i class="fas fa-heart mr-3 tm-liked-icon"></i>
-                    <i class="far fa-heart mr-3 tm-not-liked-icon"></i>
-                    <span id="tm-likes-count">486 likes</span>
-                </a>
+                <p class="mb-4">Purchase this item.</p>
                 <div>
-                    <button class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-download"><span>Download Video</span>
-                    </button>
+                    <?php echo do_shortcode('[st48pay_print_paypal_buttons]'); ?>
+                </div>
+                <div>
+                    <?php echo do_shortcode('[st48pay_print_mpesa_buttons]'); ?>
+                </div>
+                <div>
+                    <?php echo do_shortcode(
+                                    '[place-checkout-button text="Checkout via Mpesa" total_price="3000" validation_check="true"]'); ?>
+
+
                 </div>
             </div>
         </div>
