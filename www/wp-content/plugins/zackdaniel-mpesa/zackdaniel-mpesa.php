@@ -3,11 +3,21 @@
  * Plugin Name: Zack Daniel Mpesa
  */
 
+if (!function_exists('write_zdc_mpesa_log')) {
+    function write_zdc_mpesa_log($log) {
+        if (true === WP_DEBUG) {
+            if (is_array($log) || is_object($log)) {
+                error_log(print_r($log, true));
+            } else {
+                error_log($log);
+            }
+        }
+    }
+}
+
 
 if (is_admin()) {
     include_once(plugin_dir_path(__FILE__) . 'functions/code/php/init.php');
-
-
     $init = new Init();
     $init->initialize();
 }
@@ -68,22 +78,6 @@ function check_mpesa_status_handler()
     $mpesaPayRequest = new MpesaMakePayRequest();
     $result = $mpesaPayRequest->isMpesaRequestCompleted();
     wp_send_json_success(['isMpesaRequestCompleted' => $result]);
-}
-
-
-
-if (!function_exists('write_zdc_mpesa_log')) {
-
-    function write_zdc_mpesa_log($log) {
-        if (true === WP_DEBUG) {
-            if (is_array($log) || is_object($log)) {
-                error_log(print_r($log, true));
-            } else {
-                error_log($log);
-            }
-        }
-    }
-
 }
 
 /*function my_enqueue() {

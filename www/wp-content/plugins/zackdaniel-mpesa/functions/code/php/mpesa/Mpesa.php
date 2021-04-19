@@ -18,6 +18,7 @@ class Mpesa
      */
     public function __construct()
     {
+        // $this->environment = 'production';
         $this->environment = 'sandbox';
     }
 
@@ -84,14 +85,13 @@ class Mpesa
     private function setBearerAuth($mpesaBaseUrl, $headerOptions, $headers)
     {
         if (!empty($headerOptions['setBearerAuth'])) {
-            $headers = array_merge($headers,
-                [
-                    'Host' => 'sandbox.safaricom.co.ke',
-                    'Authorization' =>
-                        'Bearer ' .
-                        $this->getAccessToken()
-                ]
-            );
+            $body = [
+                'Host' => $this->getMpesaBaseUrl(true),
+                'Authorization' =>
+                    'Bearer ' .
+                    $this->getAccessToken()
+            ];
+            $headers = array_merge($headers, $body);
         }
         return $headers;
     }
@@ -100,20 +100,19 @@ class Mpesa
     {
         $url = $this->getMpesaBaseUrl() . '/oauth/v1/generate?grant_type=client_credentials';
 
-        $bearerauth = 'Basic ' .
+        $bearerAuth = 'Basic ' .
             base64_encode(
                 $this->getMpesaConsumerKey() . ":" .
                 $this->getMpesaConsumerSecret()
             );
 
         $headers = array(
-            'Authorization' => $bearerauth,
+            'Authorization' => $bearerAuth,
             'Host' => $this->getMpesaBaseUrl(true),
             'Content-type' => 'application/json',
-            // 'Content-length' => $contentlen
         );
 
-        $pload = array(
+        $payLoad = array(
             'method' => 'GET',
             'timeout' => 30,
             'redirection' => 5,
@@ -124,7 +123,7 @@ class Mpesa
             'cookies' => array()
         );
 
-        $response = wp_remote_get($url, $pload);
+        $response = wp_remote_get($url, $payLoad);
 
         $responseBody = wp_remote_retrieve_body($response);
         $result = json_decode($responseBody);
@@ -202,7 +201,7 @@ class Mpesa
     private function getMpesaConsumerSecret()
     {
         if ($this->environment == Environment::PRODUCTION) {
-            return get_option('sandbox_mpesa_consumersecret');
+            return get_option('live_mpesa_consumersecret');
         }
         if ($this->environment == Environment::TEST) {
             return get_option('sandbox_mpesa_consumersecret');

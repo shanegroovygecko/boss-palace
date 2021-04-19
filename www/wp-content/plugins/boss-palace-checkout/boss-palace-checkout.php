@@ -5,7 +5,7 @@
  * Description:       Handles Checkout Activities.
  * Version:           1.0.0
  * Requires at least: 5.7
- * Requires PHP:      7.4
+ * Requires PHP:      7.1
  * Author:            Shane Daniel
  * Text Domain:       boss_palace
  * Domain Path:       /languages

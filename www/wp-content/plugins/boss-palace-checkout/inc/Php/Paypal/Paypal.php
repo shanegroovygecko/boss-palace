@@ -17,18 +17,20 @@ class Paypal
     }
 
     /**
-     *
+     * @param array $attribute
      */
-    public function st48pay_printPaypalButtons()
+    public function st48pay_printPaypalButtons(array $attributes)
     {
-        return $this->renderButtons();
+        return $this->renderButtons($attributes);
     }
 
     /**
      *
      */
-    public function renderButtons()
+    public function renderButtons($attributes)
     {
+        $title = !empty($attributes['title']) ? $attributes['title'] : "";
+        $price = !empty($attributes['price']) ? $attributes['price'] : null;
        include_once(plugin_dir_path(__FILE__) . 'Html/checkoutButtons.php');
     }
 }

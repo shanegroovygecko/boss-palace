@@ -1,18 +1,4 @@
 <?php
-define('BL_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
-define('BL_THEME_DIR', trailingslashit(get_stylesheet_directory()));
-
-
-require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
-require_once BL_THEME_DIR. 'assets/php/Front/FrontHelper.php';
-
-use App\Site\Main;
-use App\Front\FrontHelper;
-
-$assetVersion = '1.0.0';
-$frontHelper = new FrontHelper();
-$mainFunctions = new Main();
-$mainFunctions->init();
 
 if (!function_exists('dump')) {
     function dump($object = "", $echo = true)
@@ -32,6 +18,39 @@ if (!function_exists('dd')) {
         dump($object);
         die;
     }
+}
+
+define('BL_THEME_URI', trailingslashit(esc_url(get_template_directory_uri())));
+define('BL_THEME_DIR', trailingslashit(get_stylesheet_directory()));
+
+
+require_once BL_THEME_DIR . 'assets/php/Site/SiteHelper.php';
+require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
+require_once BL_THEME_DIR. 'assets/php/Front/FrontHelper.php';
+
+/**
+ * GET THE EXCHANGE RATES
+ * @TODO - GET THIS VIA CRON JOB
+ */
+include_once BL_THEME_DIR . 'assets/php/Site/CurrencyScraper.php';
+$scrapper = new CurrencyScraper();
+$scrapper->scrape();
+$kesInverseRate = $scrapper->getSingleExchangeRateToUSD('KES', 'inverseRate');
+$kesInverseRate = $kesInverseRate > 0 ? $kesInverseRate : 1;
+
+
+use App\Site\SiteHelper;
+use App\Site\Main;
+use App\Front\FrontHelper;
+
+$assetVersion = '1.0.0';
+$frontHelper = new FrontHelper();
+$mainFunctions = new Main();
+$mainFunctions->init();
+
+function convertToUSD($fromCurrency, $amount, $kesInverseRate)
+{
+    return SiteHelper::convertToUsd($fromCurrency, $amount, $kesInverseRate);
 }
 
 

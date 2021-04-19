@@ -16,7 +16,6 @@ if ( ! defined('ABSPATH') ) {
     exit; // Exit if accessed directly.
 }
 get_header(); ?>
-
 <?php
 if ( have_posts() ) :
         ?>
@@ -24,6 +23,7 @@ if ( have_posts() ) :
     <?php
 else :
     ?>
+<?php dump($_REQUEST); ?>
     <h1>THe else index</h1>
 <?php
 endif; ?>

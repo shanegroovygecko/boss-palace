@@ -72,8 +72,7 @@ const mpesa = function () {
                     }*/
                 },
                 error: function (response) {
-
-                    // self.sendUserToPaymentResultScreen(false);
+                    //self.sendUserToPaymentResultScreen(false);
                 }
             });
 

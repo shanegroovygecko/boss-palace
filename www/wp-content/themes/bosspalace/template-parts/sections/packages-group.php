@@ -1,10 +1,11 @@
 <main>
+    <?php global $kesInverseRate; ?>
     <?php get_template_part('template-parts/sections/headers/nav/nav', 'one'); ?>
 
     <?php $fields = get_fields(get_the_ID()); ?>
     <div class="row mb-5 pb-4">
         <div class="col-12">
-            <?php /* if (!empty($fields['youtube_video_id'])): ?>
+            <?php  if (!empty($fields['youtube_video_id'])): ?>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/<?php echo $fields['youtube_video_id']; ?>"
                             frameborder="0"
@@ -34,22 +35,53 @@
                     height: 100%;
                 }
             </style>
-            <?php elseif (!empty($fields['youtube_video_id'])): ?>
-                <img src="<?php echo esc_url(BL_THEME_URI . 'templatemo_552_video_catalog/img/tn-01.jpg'); ?>"
-                     alt="Image" class="img-fluid tm-catalog-item-img">
-            <?php endif; */ ?>
+            <?php elseif (!empty($fields['main_image'])): ?>
+            <div class="package-image-pocket">
+                <img src="<?php echo $fields['main_image']['sizes']['large']; ?>"
+                     alt="Image" class="img-fluid tm-catalog-item-img" width="100%">
+            </div>
+            <?php endif; ?>
         </div>
     </div>
+    <?php $usPrice = convertToUSD('KES', (!empty($fields['price']) ? $fields['price'] : 0), $kesInverseRate); ?>
     <div class="row mb-5 pb-5">
         <div class="col-xl-8 col-lg-7">
             <!-- Video description -->
             <div class="tm-video-description-box">
+                <h3 class="tm-text-primary mb-3 tm-catalog-item-title">
+                    Ksh <?php echo $fields['price'] ?? "" ?>
+                    <span class="price-equivalent">
+                        (<?php echo $usPrice; ?> USD)
+                    </span>
+                </h3>
                 <h2 class="mb-5 tm-video-title"><?php the_title(); ?></h2>
                 <?php the_content(); ?>
             </div>
         </div>
         <div class="col-xl-4 col-lg-5">
             <!-- Share box -->
+
+            <div class="tm-bg-gray tm-share-box item-purchase-box">
+                <p class="mb-4">Purchase this item.</p>
+                <h5 class="tm-text-primary mb-3 tm-catalog-item-title">
+                    Ksh <?php echo $fields['price'] ?? "" ?>
+                    <span class="price-equivalent">
+                        (<?php echo $usPrice; ?> USD)
+                    </span>
+                </h5>
+                <div>
+                    <?php echo do_shortcode('[st48pay_print_paypal_buttons 
+                    price="' . $usPrice . '" 
+                    title="' . get_the_title() . '"
+                    ]'); ?>
+                </div>
+                <div class="site-mpesa-button-pocket">
+                    <?php echo do_shortcode(
+                        '[place-checkout-button text="Checkout via Mpesa" total_price="100" validation_check="true"]'); ?>
+                </div>
+            </div>
+
+
             <div class="tm-bg-gray tm-share-box">
                 <h6 class="tm-share-box-title mb-4">Share this video</h6>
                 <div class="mb-5 d-flex">
@@ -58,20 +90,22 @@
                     <a href="" class="tm-bg-white tm-share-button"><i class="fab fa-pinterest"></i></a>
                     <a href="" class="tm-bg-white tm-share-button"><i class="far fa-envelope"></i></a>
                 </div>
-                <p class="mb-4">Purchase this item.</p>
-                <div>
-                    <?php echo do_shortcode('[st48pay_print_paypal_buttons]'); ?>
-                </div>
-                <div>
-                    <?php echo do_shortcode('[st48pay_print_mpesa_buttons]'); ?>
-                </div>
-                <div>
-                    <?php echo do_shortcode(
-                                    '[place-checkout-button text="Checkout via Mpesa" total_price="3000" validation_check="true"]'); ?>
-
-
-                </div>
             </div>
+
+            <style>
+                .item-purchase-box{
+                    margin-bottom: 30px;
+                }
+
+                .site-mpesa-button-pocket button{
+                    width:100%;
+                }
+
+                .package-image-pocket{
+                    max-height: 720px;
+                    overflow: hidden;
+                }
+            </style>
         </div>
     </div>
 

@@ -59,7 +59,30 @@ class Main
                     'ResultDesc' => 'The balance is insufficient for the transaction',
                 ]
             ]
-        ];*/
+        ];
+
+        [17-Apr-2021 16:04:44 UTC] MPESA CALLBACK HAPPENED - validation-url updateMpesaFromCallback3Array
+(
+    [Body] => Array
+        (
+            [stkCallback] => Array
+                (
+                    [MerchantRequestID] => 15430-17365875-1
+                    [CheckoutRequestID] => ws_CO_170420211904421388
+                    [ResultCode] => 1
+                    [ResultDesc] => The balance is insufficient for the transaction
+                )
+
+        )
+
+)
+
+*/
+
+        write_zdc_mpesa_log(
+            'MPESA CALLBACK HAPPENED - validation-url updateMpesaFromCallback3'.
+            print_r($data, true)
+        );
 
 
         include_once(plugin_dir_path(__FILE__) . 'mpesa/MpesaMakePayRequest.php');
