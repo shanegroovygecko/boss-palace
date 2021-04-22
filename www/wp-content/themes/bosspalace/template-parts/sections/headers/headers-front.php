@@ -4,7 +4,7 @@
         <div class="container-fluid position-relative">
             <div class="row">
                 <div class="col-7 col-md-4">
-                    <a href="index.html" class="tm-bg-black text-center tm-logo-container">
+                    <a href="/" class="tm-bg-black text-center tm-logo-container">
                         <i class="fas fa-video tm-site-logo mb-3"></i>
                         <h1 class="tm-site-name">Sourcing Packages</h1>
                     </a>
@@ -22,9 +22,6 @@
                             </button>
                             <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
                                 <ul class="navbar-nav text-uppercase">
-                                    <li class="nav-item active">
-                                        <a class="nav-link tm-nav-link" href="#">Videos <span class="sr-only">(current)</span></a>
-                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link tm-nav-link" href="about.html">About</a>
                                     </li>

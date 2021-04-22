@@ -23,8 +23,6 @@ if ( have_posts() ) :
     <?php
 else :
     ?>
-<?php dump($_REQUEST); ?>
-    <h1>THe else index</h1>
 <?php
 endif; ?>
 

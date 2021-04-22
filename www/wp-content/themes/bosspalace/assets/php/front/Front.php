@@ -22,4 +22,16 @@ class Front extends GlobalFunctions
     {
         add_action('init', array($this, 'setPostTypes'));
     }
+
+    private function addAjaxHandlers()
+    {
+        add_action('wp_ajax_nopriv_add_to_cart', array($this, 'add_to_cart_ajax_hadler'));
+        add_action('wp_ajax_add_to_cart', array($this, 'add_to_cart_ajax_hadler'));
+    }
+
+    public function add_to_cart_ajax_hadler($args)
+    {
+        // Get the number of items in the cart.
+        wp_send_json_success(json_encode(['amountInShoppingCart' => "the response"]));
+    }
 }

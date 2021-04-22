@@ -8,20 +8,38 @@
             <p class="mb-5">Please subscribe our newsletter for upcoming new videos and latest information about our
                 work. Thank you.</p>
             <form action="" method="GET" class="tm-subscribe-form">
-                <input type="text" name="email" placeholder="Your Email..." required>
-                <button type="submit" class="btn rounded-0 btn-primary tm-btn-small">Subscribe</button>
+                    <input type="text" id="emailListElement" name="email" class="" placeholder="Your Email..." required>
+                <button type="submit" id="emailListSubmitElement" class="btn rounded-0 btn-primary tm-btn-small">Subscribe</button>
+                <div class="errored">&nbsp;&nbsp;Please enter a valid email</div>
             </form>
+            <style>
+                form .errored{
+                    display: none;
+                }
+
+                form .has-error,
+                form.errored .errored{
+                    color: red;
+                    border-color: red;
+                }
+
+                form.errored .errored{
+                    display: inline-block;
+                }
+            </style>
         </div>
     </div>
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 mb-4">
         <div class="p-5 tm-bg-gray">
             <h3 class="tm-text-primary mb-4">Quick Links</h3>
             <ul class="list-unstyled tm-footer-links">
-                <li><a href="#">Duis bibendum</a></li>
-                <li><a href="#">Purus non dignissim</a></li>
-                <li><a href="#">Sapien metus gravida</a></li>
-                <li><a href="#">Eget consequat</a></li>
-                <li><a href="#">Praesent eu pulvinar</a></li>
+                <li><a href="<?php
+                    echo BlConfig::getSetting('Whatsapp', 'getHrefPrefix');
+                    ?>send?phone=<?php
+                    echo BlConfig::getSetting('Whatsapp', 'getContactNumber');
+                    ?>&text=<?php
+                    echo BlConfig::getSetting('Whatsapp', 'getMainMessage');
+                    ?>"><i class="fab fa-whatsapp" aria-hidden="true"></i> Chat on WhatsApp here</a></li>
             </ul>
         </div>
     </div>
@@ -29,11 +47,8 @@
         <div class="p-5 tm-bg-gray h-100">
             <h3 class="tm-text-primary mb-4">Our Pages</h3>
             <ul class="list-unstyled tm-footer-links">
-                <li><a href="#">Our Videos</a></li>
-                <li><a href="#">License Terms</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Privacy Policies</a></li>
+                <li><a href="#">Contact us</a></li>
             </ul>
         </div>
     </div>
