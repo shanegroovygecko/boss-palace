@@ -40,7 +40,7 @@ class Init
                 //'has_archive' => true,
                 //'rewrite' => array('slug' => 'mpesa-references'),
                 //'show_in_rest' => true,
-                'show_ui' => true,
+                'show_ui' => false,
                 'publicly_queryable' => true,
                 'exclude_from_search' => true,
                 //'rewrite' => array('slug' => 'news'),

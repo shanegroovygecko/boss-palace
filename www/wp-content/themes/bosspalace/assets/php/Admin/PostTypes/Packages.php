@@ -60,6 +60,35 @@ class Packages extends PostTypes implements PostTypesInterface
                 //'has_archive' => true,
                 //'rewrite' => array('slug' => 'exchange-ratess'),
                 //'show_in_rest' => true,
+                'show_ui' => false,
+                'publicly_queryable' => true,
+                'exclude_from_search' => true,
+                //'rewrite' => array('slug' => 'news'),
+                'query_var' => true,
+                'menu_position' => 4,
+                //'has_archive' => true,
+                'capability_type' => 'page',
+                'supports' => array('title')
+                //'supports' => array('title', 'editor', 'thumbnail')
+
+            )
+        );
+
+        register_post_type('email_list',
+            array(
+                'labels' => array(
+                    'name' => __('Email list'),
+                    'singular_name' => __('Email list'),
+                    'view_item' => __('View Email list'),
+                    'edit' => __('Edit Email list'),
+                    'edit_item' => __('Edit Email list'),
+                    'add_new' => __('Add Email list'),
+                    'add_new_item' => __('Add Email list')
+                ),
+                'public' => true,
+                //'has_archive' => true,
+                //'rewrite' => array('slug' => 'exchange-ratess'),
+                //'show_in_rest' => true,
                 'show_ui' => true,
                 'publicly_queryable' => true,
                 'exclude_from_search' => true,

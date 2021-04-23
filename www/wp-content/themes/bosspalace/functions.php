@@ -29,6 +29,7 @@ require_once BL_THEME_DIR . 'assets/php/Site/Config/BlConfig.php';
 require_once BL_THEME_DIR . 'assets/php/Site/SiteHelper.php';
 require_once BL_THEME_DIR . 'assets/php/Site/Main.php';
 require_once BL_THEME_DIR. 'assets/php/Front/FrontHelper.php';
+require_once BL_THEME_DIR. 'assets/php/Front/EmailList.php';
 
 /**
  * GET THE EXCHANGE RATES
@@ -44,6 +45,7 @@ $kesInverseRate = $kesInverseRate > 0 ? $kesInverseRate : 1;
 use App\Site\SiteHelper;
 use App\Site\Main;
 use App\Front\FrontHelper;
+use App\Front\EmailList;
 
 $assetVersion = '1.0.0';
 $frontHelper = new FrontHelper();
@@ -99,4 +101,18 @@ function add_scripts()
         'ajaxurl' => admin_url('admin-ajax.php')
     );
     wp_localize_script('f_front_end_js', "mainVars", $variables);
+}
+
+add_action('wp_ajax_nopriv_add_to_cart', 'add_to_cart_ajax_hadler');
+add_action('wp_ajax_add_to_cart', 'add_to_cart_ajax_hadler');
+
+function add_to_cart_ajax_hadler($args)
+{
+    $result = "";
+    $email = $_POST['email'] ?? '';
+    if(!empty($email)) {
+        $result = (new EmailList())->saveEmailForMailListing($email);
+    }
+    // Get the number of items in the cart.
+    return wp_send_json_success(json_encode(['amountInShoppingCart' => $result]));
 }

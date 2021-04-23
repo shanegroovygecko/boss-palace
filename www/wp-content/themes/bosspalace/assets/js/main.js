@@ -50,7 +50,7 @@
                 if(!validateResults){
                     self.showError(true, emailElement);
                 }else{
-                    this.submitForEmailList();
+                    this.submitForEmailList(emailElement.val());
                 }
             });
 
@@ -74,13 +74,52 @@
             }
         };
 
-        this.submitForEmailList = () => {
-            alert('submitting');
+        this.submitForEmailList = (email) => {
+
+            var data = {
+                email: email,
+                action: "add_to_cart"
+            };
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: mainVars.ajaxurl,
+                data: data,
+                success: function (response) {
+                    console.log('response', response);
+                    self.displayResults(true);
+                },
+                error: function (response) {
+                    self.displayResults(false);
+                }
+            });
         };
 
+        this.displayResults = (success) => {
+            if(success){
+                $('.email-list-block > .email-list-submit-success').show();
+                $('.email-list-block > form').hide();
+            }else{
+                $('.email-list-block > .email-list-submit-failure').show();
+            }
+        };
+
+    };
+
+    const mpesaControl = function () {
+        //site-mpesa-button-pocket
     };
 
     $(document).ready(function () {
         (new emailList()).init();
     });
 })(jQuery);
+
+
+function mpesaButtonSubmitting(result){
+    if(result){
+        $('.site-mpesa-button-pocket .mpesa-submitting-holder').show();
+        $('.site-mpesa-button-pocket .mpesa-button-holder').hide();
+    }
+}

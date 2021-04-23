@@ -3,15 +3,21 @@
 <!-- Subscribe form and footer links -->
 <div class="row mt-5 pt-3">
     <div class="col-xl-6 col-lg-12 mb-4">
-        <div class="tm-bg-gray p-5 h-100">
+        <div class="tm-bg-gray p-5 h-100 email-list-block">
             <h3 class="tm-text-primary mb-3">Do you want to get our latest updates?</h3>
             <p class="mb-5">Please subscribe our newsletter for upcoming new videos and latest information about our
                 work. Thank you.</p>
-            <form action="" method="GET" class="tm-subscribe-form">
+            <div class="email-list-submit-success">
+                <h4>Thank you! We will be in touch</h4>
+            </div>
+            <form action="" method="GET" class="tm-subscribe-form email-list-form">
                     <input type="text" id="emailListElement" name="email" class="" placeholder="Your Email..." required>
                 <button type="submit" id="emailListSubmitElement" class="btn rounded-0 btn-primary tm-btn-small">Subscribe</button>
                 <div class="errored">&nbsp;&nbsp;Please enter a valid email</div>
             </form>
+            <div class="email-list-submit-failure">
+                <small>Oops! Something went wrong. Please try again later.</small>
+            </div>
             <style>
                 form .errored{
                     display: none;
@@ -25,6 +31,19 @@
 
                 form.errored .errored{
                     display: inline-block;
+                }
+
+                .email-list-block .email-list-submit-success,
+                .email-list-block .email-list-submit-failure{
+                    display: none;
+                }
+
+                .email-list-block .email-list-submit-success{
+                    color: green;
+                }
+
+                .email-list-block .email-list-submit-failure{
+                    color: red;
                 }
             </style>
         </div>

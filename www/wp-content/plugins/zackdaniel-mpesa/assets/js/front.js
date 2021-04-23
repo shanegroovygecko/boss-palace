@@ -48,9 +48,12 @@ const mpesa = function () {
     };
 
     this.handleMpesaButtonClick = function (evt) {
+        const onClickReportFunction =
+            $(evt.currentTarget).data('onClickReportFunction');
         const validated = this.validateMepsaForm();
         const totalPrice = $(evt.currentTarget).data('price');
         if (validated) {
+            self.sendValidationReport(onClickReportFunction, true);
             const data = {
                 phoneNumber: this.getRawPhoneNumber($('.mpesa-mobile-input').val()),
                 amount: totalPrice,
@@ -63,7 +66,7 @@ const mpesa = function () {
                 url: test.ajaxurl,
                 data: data,
                 success: function (response) {
-                    console.log('response '+test.ajaxurl, response);
+                    console.log('response ' + test.ajaxurl, response);
                     /*if (response.success && response.data) {
                         self.pollToSubmitStkForm(response.data);
                     } else {
@@ -78,6 +81,13 @@ const mpesa = function () {
 
         } else {
             // show error message on the phone number
+            self.sendValidationReport(onClickReportFunction, false);
+        }
+    };
+
+    this.sendValidationReport = function (theFunction, valid) {
+        if (typeof theFunction == 'string') {
+            eval(theFunction)(valid);
         }
     };
 
@@ -171,9 +181,9 @@ const mpesa = function () {
     };
 
     this.toggleErrorOnMpesaButton = function (button, state) {
-        if(state){
+        if (state) {
             $(button).closest('.field-block').addClass('error');
-        }else{
+        } else {
             $(button).closest('.field-block').removeClass('error');
         }
     };
@@ -187,7 +197,7 @@ const mpesa = function () {
             if (valid) {
                 self.toggleErrorOnMpesaButton(this, false);
                 self.handleMpesaButtonClick(evt);
-            }else{
+            } else {
                 self.toggleErrorOnMpesaButton(this, true);
             }
         });
@@ -201,7 +211,7 @@ const mpesa = function () {
 
 (($) => {
     $(document).ready(function () {
-         const m = new mpesa();
+        const m = new mpesa();
         m.init();
     });
 })(jQuery);

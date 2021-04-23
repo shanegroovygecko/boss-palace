@@ -18,7 +18,7 @@ global $kesInverseRate;
                         <img src="https://img.youtube.com/vi/<?php echo $fields['youtube_video_id']; ?>/0.jpg"
                              alt="Image" class="img-fluid tm-catalog-item-img">
                     <?php elseif (!empty($fields['main_image'])): ?>
-                        <img src="<?php echo $fields['main_image']['sizes']['thumbnail']; ?>"
+                        <img src="<?php echo $fields['main_image']['sizes']['medium']; ?>"
                              alt="Image" class="img-fluid tm-catalog-item-img" width="100%">
                     <?php endif; ?>
                     <a href="<?php echo the_permalink(); ?>" class="position-absolute tm-img-overlay">

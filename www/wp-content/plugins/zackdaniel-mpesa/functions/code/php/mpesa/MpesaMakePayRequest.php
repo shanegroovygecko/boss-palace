@@ -72,7 +72,7 @@ class MpesaMakePayRequest extends Mpesa
         ];
 
         //$data['Password'] = 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTgwNDA5MDkzMDAy';
-        $data['Amount'] = '100';
+        // $data['Amount'] = '100';
         //$data['Timestamp'] = '20180409093002';
 
         // dd($data);

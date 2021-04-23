@@ -35,7 +35,8 @@ function place_checkout_button($atts)
     $buttonText = !empty($atts['text']) ? $atts['text'] : "Checkout";
     $totalPrice = !empty($atts['total_price']) ? $atts['total_price'] : 0;
     $validationCheckFunction = !empty($atts['validation_check']) ? $atts['validation_check'] : null;
-    return getCheckoutButton($buttonText, $totalPrice, $validationCheckFunction);
+    $onClickReportFunction = !empty($atts['on_click_report']) ? $atts['on_click_report'] : null;
+    return getCheckoutButton($buttonText, $totalPrice, $validationCheckFunction, $onClickReportFunction);
 }
 
 add_action('wp_enqueue_scripts', 'front_end_script');

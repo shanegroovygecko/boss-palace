@@ -1,3 +1,48 @@
+<style>
+    .video-container {
+        overflow: hidden;
+        position: relative;
+        width:100%;
+    }
+
+    .video-container::after {
+        padding-top: 56.25%;
+        display: block;
+        content: '';
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .item-purchase-box{
+        margin-bottom: 30px;
+    }
+
+    .site-mpesa-button-pocket button{
+        width:100%;
+    }
+
+    .package-image-pocket{
+        max-height: 720px;
+        overflow: hidden;
+    }
+
+    .site-mpesa-button-pocket .mpesa-submitting-holder{
+        display: none;
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    .site-mpesa-button-pocket img{
+        width: 100%;
+        max-width: 40px;
+    }
+</style>
 <main>
     <?php global $kesInverseRate; ?>
     <?php get_template_part('template-parts/sections/headers/nav/nav', 'one'); ?>
@@ -14,27 +59,6 @@
 
                     </iframe>
                 </div>
-            <style>
-                .video-container {
-                    overflow: hidden;
-                    position: relative;
-                    width:100%;
-                }
-
-                .video-container::after {
-                    padding-top: 56.25%;
-                    display: block;
-                    content: '';
-                }
-
-                .video-container iframe {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                }
-            </style>
             <?php elseif (!empty($fields['main_image'])): ?>
             <div class="package-image-pocket">
                 <img src="<?php echo $fields['main_image']['sizes']['large']; ?>"
@@ -76,8 +100,19 @@
                     ]'); ?>
                 </div>
                 <div class="site-mpesa-button-pocket">
-                    <?php echo do_shortcode(
-                        '[place-checkout-button text="Checkout via Mpesa" total_price="100" validation_check="true"]'); ?>
+                    <div class="mpesa-submitting-holder">
+                        <div class=""><h4>Submitting</h4></div>
+                        <div>
+                            <img src="<?php echo esc_url(BL_THEME_URI . 'assets/img/loading-buffering.gif'); ?>" />
+                        </div>
+                    </div>
+                    <div class="mpesa-button-holder">
+                        <?php echo do_shortcode(
+                            '[place-checkout-button text="Checkout via Mpesa" 
+                            total_price="'.$fields['price'].'" 
+                            validation_check="true" 
+                            on_click_report="mpesaButtonSubmitting"]'); ?>
+                    </div>
                 </div>
             </div>
 
@@ -87,25 +122,8 @@
                 <div class="mb-5 d-flex">
                     <a href="" class="tm-bg-white tm-share-button"><i class="fab fa-facebook"></i></a>
                     <a href="" class="tm-bg-white tm-share-button"><i class="fab fa-twitter"></i></a>
-                    <a href="" class="tm-bg-white tm-share-button"><i class="fab fa-pinterest"></i></a>
-                    <a href="" class="tm-bg-white tm-share-button"><i class="far fa-envelope"></i></a>
                 </div>
             </div>
-
-            <style>
-                .item-purchase-box{
-                    margin-bottom: 30px;
-                }
-
-                .site-mpesa-button-pocket button{
-                    width:100%;
-                }
-
-                .package-image-pocket{
-                    max-height: 720px;
-                    overflow: hidden;
-                }
-            </style>
         </div>
     </div>
 
