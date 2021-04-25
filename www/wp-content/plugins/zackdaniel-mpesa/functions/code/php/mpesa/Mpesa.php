@@ -18,8 +18,9 @@ class Mpesa
      */
     public function __construct()
     {
-        // $this->environment = 'production';
+        //$this->environment = 'production';
         $this->environment = 'sandbox';
+
     }
 
     protected function callMepsa($path, $method, $headerOptions = [], $body = null)
@@ -85,11 +86,12 @@ class Mpesa
     private function setBearerAuth($mpesaBaseUrl, $headerOptions, $headers)
     {
         if (!empty($headerOptions['setBearerAuth'])) {
+            $accessToken = $this->getAccessToken();
+            dd($accessToken);
             $body = [
                 'Host' => $this->getMpesaBaseUrl(true),
                 'Authorization' =>
-                    'Bearer ' .
-                    $this->getAccessToken()
+                    'Bearer ' . $accessToken
             ];
             $headers = array_merge($headers, $body);
         }
@@ -147,6 +149,20 @@ class Mpesa
             return get_option('sandbox_mpesa_lipa_na_shortcode');
         }
         return get_option('sandbox_mpesa_lipa_na_shortcode');
+    }
+
+    /**
+     * @return mixed|string
+     */
+    protected function getPartyBKey(): string
+    {
+        if ($this->environment == Environment::PRODUCTION) {
+            return get_option('live_mpesa_lipa_na_partyb');
+        }
+        if ($this->environment == Environment::TEST) {
+            return get_option('sandbox_mpesa_lipa_na_partyb');
+        }
+        return get_option('sandbox_mpesa_lipa_na_partyb');
     }
 
     /**

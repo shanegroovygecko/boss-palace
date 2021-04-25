@@ -18,12 +18,14 @@ class SettingsPage
         register_setting('reading', 'sandbox_mpesa_consumersecret');
         register_setting('reading', 'sandbox_mpesa_lipa_na_passkey');
         register_setting('reading', 'sandbox_mpesa_lipa_na_shortcode');
+        register_setting('reading', 'sandbox_mpesa_lipa_na_partyb');
 
         register_setting('reading', 'live_mpesa_baseurl');
         register_setting('reading', 'live_mpesa_consumerkey');
         register_setting('reading', 'live_mpesa_consumersecret');
         register_setting('reading', 'live_mpesa_lipa_na_passkey');
         register_setting('reading', 'live_mpesa_lipa_na_shortcode');
+        register_setting('reading', 'live_mpesa_lipa_na_partyb');
 
         // register a new section in the "reading" page
         add_settings_section(
@@ -80,6 +82,15 @@ class SettingsPage
 
         // register a new field in the "wporg_settings_section" section, inside the "reading" page
         add_settings_field(
+            'sandbox_mpesa_lipa_na_partyb_field',
+            'sandbox mpesa lipa na Party B',
+            array($this, 'sandbox_mpesa_lipa_na_partyb_field_cb'),
+            'reading',
+            'mpesa_settings_section'
+        );
+
+        // register a new field in the "wporg_settings_section" section, inside the "reading" page
+        add_settings_field(
             'live_mpesa_baseurl_field',
             'live mpesa baseurl',
             array($this, 'live_mpesa_baseurl_field_cb'),
@@ -119,6 +130,15 @@ class SettingsPage
             'live_mpesa_lipa_na_shortcode_field',
             'live mpesa lipa na shortcode',
             array($this, 'live_mpesa_lipa_na_shortcode_field_cb'),
+            'reading',
+            'mpesa_settings_section'
+        );
+
+        // register a new field in the "wporg_settings_section" section, inside the "reading" page
+        add_settings_field(
+            'live_mpesa_lipa_na_partyb_field',
+            'live mpesa lipa na Party B Code',
+            array($this, 'live_mpesa_lipa_na_partyb_field_cb'),
             'reading',
             'mpesa_settings_section'
         );
@@ -190,6 +210,17 @@ class SettingsPage
         <?php
     }
 
+    public function sandbox_mpesa_lipa_na_partyb_field_cb()
+    {
+        // get the value of the setting we've registered with register_setting()
+        $setting = get_option('sandbox_mpesa_lipa_na_partyb');
+        // output the field
+        ?>
+        <input type="text" name="sandbox_mpesa_lipa_na_partyb"
+               value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+        <?php
+    }
+
     public function live_mpesa_baseurl_field_cb()
     {
         // get the value of the setting we've registered with register_setting()
@@ -240,6 +271,17 @@ class SettingsPage
         // output the field
         ?>
         <input type="text" name="live_mpesa_lipa_na_shortcode"
+               value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
+        <?php
+    }
+
+    public function live_mpesa_lipa_na_partyb_field_cb()
+    {
+        // get the value of the setting we've registered with register_setting()
+        $setting = get_option('live_mpesa_lipa_na_partyb');
+        // output the field
+        ?>
+        <input type="text" name="live_mpesa_lipa_na_partyb"
                value="<?php echo isset($setting) ? esc_attr($setting) : ''; ?>">
         <?php
     }

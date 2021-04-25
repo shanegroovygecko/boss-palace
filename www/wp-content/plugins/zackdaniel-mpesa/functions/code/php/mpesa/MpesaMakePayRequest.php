@@ -53,6 +53,7 @@ class MpesaMakePayRequest extends Mpesa
         $callBackURL = $base . '/wp-json/mobile-money/stkpush-callback';
 
         $businessShortCode = $this->getShortKey();
+        $partyBCode = $this->getPartyBKey();
         $msisdn = self::MSISDN_PREFIX . $phoneNumber;
         $timestamp = date("Ymdhis");
         $password = base64_encode($businessShortCode . $this->getBusinessPassKey() . $timestamp);
@@ -62,9 +63,10 @@ class MpesaMakePayRequest extends Mpesa
             "Password" => $password,
             "Timestamp" => $timestamp,
             "TransactionType" => "CustomerPayBillOnline",
+            //"TransactionType" => "CustomerBuyGoodsOnline",
             "Amount" => $amount,
             "PartyA" => $msisdn,
-            "PartyB" => $businessShortCode,
+            "PartyB" => $partyBCode,
             "PhoneNumber" => $msisdn,
             "CallBackURL" => $callBackURL,
             "AccountReference" => "account",
@@ -75,6 +77,8 @@ class MpesaMakePayRequest extends Mpesa
         // $data['Amount'] = '100';
         //$data['Timestamp'] = '20180409093002';
 
+        //$data['Amount'] = '500';
+        //$data['PartyB'] = '5248767';
         // dd($data);
 
         /*{
