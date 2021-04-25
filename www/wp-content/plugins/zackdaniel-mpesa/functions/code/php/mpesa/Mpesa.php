@@ -18,7 +18,7 @@ class Mpesa
      */
     public function __construct()
     {
-        //$this->environment = 'production';
+        // $this->environment = 'production';
         $this->environment = 'sandbox';
 
     }
@@ -87,7 +87,6 @@ class Mpesa
     {
         if (!empty($headerOptions['setBearerAuth'])) {
             $accessToken = $this->getAccessToken();
-            dd($accessToken);
             $body = [
                 'Host' => $this->getMpesaBaseUrl(true),
                 'Authorization' =>

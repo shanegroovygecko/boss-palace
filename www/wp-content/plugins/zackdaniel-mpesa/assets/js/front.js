@@ -66,15 +66,17 @@ const mpesa = function () {
                 url: test.ajaxurl,
                 data: data,
                 success: function (response) {
-                    console.log('response ' + test.ajaxurl, response);
-                    /*if (response.success && response.data) {
-                        self.pollToSubmitStkForm(response.data);
+                    if (response.success && response.data) {
+                        self.sendAjaxCompleteReport(onClickReportFunction, true);
+                        //self.pollToSubmitStkForm(response.data);
                     } else {
                         // show error to the user.
-                        self.sendUserToPaymentResultScreen(false);
-                    }*/
+                        self.sendAjaxCompleteReport(onClickReportFunction, false);
+                        //self.sendUserToPaymentResultScreen(false);
+                    }
                 },
                 error: function (response) {
+                    self.sendAjaxCompleteReport(onClickReportFunction, false);
                     //self.sendUserToPaymentResultScreen(false);
                 }
             });
@@ -87,7 +89,13 @@ const mpesa = function () {
 
     this.sendValidationReport = function (theFunction, valid) {
         if (typeof theFunction == 'string') {
-            eval(theFunction)(valid);
+            eval(theFunction)('validation', valid);
+        }
+    };
+
+    this.sendAjaxCompleteReport = function (theFunction, status) {
+        if (typeof theFunction == 'string') {
+            eval(theFunction)('ajax_complete', status);
         }
     };
 

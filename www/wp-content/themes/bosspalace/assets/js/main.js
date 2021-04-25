@@ -1,3 +1,5 @@
+let mpesaControl;
+
 (($) => {
 
     const validator = function () {
@@ -47,9 +49,9 @@
                 const emailElement = $('#emailListElement');
                 self.showError(false, emailElement);
                 const validateResults = self.validate.validate('email', emailElement);
-                if(!validateResults){
+                if (!validateResults) {
                     self.showError(true, emailElement);
-                }else{
+                } else {
                     this.submitForEmailList(emailElement.val());
                 }
             });
@@ -58,17 +60,17 @@
                 const item = $(evt.currentTarget);
                 self.showError(false, item);
                 const validateResults = self.validate.validate('email', item);
-                if(!validateResults){
+                if (!validateResults) {
                     self.showError(true, item);
                 }
             });
         };
 
         this.showError = (errored, element) => {
-            if(errored){
+            if (errored) {
                 element.addClass('has-error');
                 element.parent().addClass('errored');
-            }else{
+            } else {
                 element.removeClass('has-error');
                 element.parent().removeClass('errored');
             }
@@ -97,18 +99,28 @@
         };
 
         this.displayResults = (success) => {
-            if(success){
+            if (success) {
                 $('.email-list-block > .email-list-submit-success').show();
                 $('.email-list-block > form').hide();
-            }else{
+            } else {
                 $('.email-list-block > .email-list-submit-failure').show();
             }
         };
 
     };
 
-    const mpesaControl = function () {
-        //site-mpesa-button-pocket
+    mpesaControl = function () {
+        this.toggleMpesaSubmitSpinner = function (state) {
+            switch (state) {
+                case "show":
+                    $('.site-mpesa-button-pocket .mpesa-submitting-holder').show();
+                    $('.site-mpesa-button-pocket .mpesa-button-holder').hide();
+                    break;
+                default:
+                    $('.site-mpesa-button-pocket .mpesa-submitting-holder').hide();
+                    $('.site-mpesa-button-pocket .mpesa-button-holder').show();
+            }
+        };
     };
 
     $(document).ready(function () {
@@ -116,10 +128,28 @@
     });
 })(jQuery);
 
+const mpesaControlObj = new mpesaControl();
 
-function mpesaButtonSubmitting(result){
-    if(result){
-        $('.site-mpesa-button-pocket .mpesa-submitting-holder').show();
-        $('.site-mpesa-button-pocket .mpesa-button-holder').hide();
+function mpesaButtonSubmitting(signal, result) {
+    // console.log('signal', signal);
+    switch (signal) {
+        case 'validation': {
+            if (result) {
+                // console.log('validationresult', result)
+                mpesaControlObj.toggleMpesaSubmitSpinner('show');
+            }
+            break;
+        }
+        case 'ajax_complete': {
+            // depends on the result here, we might have to reload the screen or allow
+            // resubmit.
+            // console.log('ajax_completeresult', result);
+            if (result) {
+                // mpesaControlObj.toggleMpesaSubmitSpinner('show');
+            } else {
+                mpesaControlObj.toggleMpesaSubmitSpinner('hide');
+            }
+            break;
+        }
     }
 }
